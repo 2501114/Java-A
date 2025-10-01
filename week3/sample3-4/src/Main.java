@@ -1,12 +1,21 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
-   String name = "홍길동";
+        Scanner keyboard = new Scanner(System.in);
+        float litter = 0.0f;
+        float km = 0.0f;
+        float result = 0.0f;
 
-        System.out.printf("이름 : %s\n", name);
-        System.out.printf("나이 : %2d\n", age);
-        System.out.printf("시력 : %3,1f\n", eye);
-        System.out.printf("혈액형 : %s\n", blood);
+        System.out.print("사용 연료 량 입력 : ");
+        litter = keyboard.nextFloat();
+        System.out.print("운행 거리 입력 : ");
+        km = keyboard.nextFloat();
+
+        result = km / litter;
+
+
+        System.out.printf("사용 연료 량 : %.2f %c\n", litter, '\u2113');
+        System.out.printf("운행 거리 : %.2f Km\n", km);
+        System.out.printf("연비 : %.2f Km/%c\n", result, '\u2113');
     }
 }
