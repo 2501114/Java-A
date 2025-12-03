@@ -1,66 +1,45 @@
 import java.util.Scanner;
+import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    static final String[] HANGUL_NUM = {"", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구"};
+    static final String[] HANGUL_UNIT = {"", "십", "백", "천"};
+    static final String[] BIG_UNIT = {"", "만", "억", "조"};
 
-        Scanner sc = new Scanner(System.in);
+    public static String convert4Digits(String four) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < four.length(); i++) {
+            int digit = four.charAt(i) - '0';
+            int pos = 4 - i - 1;
 
-        int[] id = new int[10];
-        String[] name = new String[10];
-
-        int[] mid = new int[10];
-        int[] fin = new int[10];
-        int[] quiz = new int[10];
-        int[] report = new int[10];
-        int[] attend = new int[10];
-
-        double[] total = new double[10];
-
-        System.out.println("10명 학생 정보 입력 (학번 이름 중간 기말 퀴즈 과제 출석), 한 줄에 한 학생씩:");
-
-        // 10명의 데이터를 한 줄씩 입력
-        for (int i = 0; i < 10; i++) {
-            id[i] = sc.nextInt();
-            name[i] = sc.next();
-            mid[i] = sc.nextInt();
-            fin[i] = sc.nextInt();
-            quiz[i] = sc.nextInt();
-            report[i] = sc.nextInt();
-            attend[i] = sc.nextInt();
-
-            total[i] = mid[i] * 0.15 +
-                    fin[i] * 0.15 +
-                    quiz[i] * 0.10 +
-                    report[i] * 0.40 +
-                    attend[i] * 0.20;
-        }
-
-        // 내림차순 정렬
-        for (int i = 0; i < 10; i++) {
-            for (int j = i + 1; j < 10; j++) {
-                if (total[i] < total[j]) {
-                    double tmp = total[i];
-                    total[i] = total[j];
-                    total[j] = tmp;
-
-                    int t1 = id[i]; id[i] = id[j]; id[j] = t1;
-                    String t2 = name[i]; name[i] = name[j]; name[j] = t2;
-
-                    int t3 = mid[i]; mid[i] = mid[j]; mid[j] = t3;
-                    int t4 = fin[i]; fin[i] = fin[j]; fin[j] = t4;
-                    int t5 = quiz[i]; quiz[i] = quiz[j]; quiz[j] = t5;
-                    int t6 = report[i]; report[i] = report[j]; report[j] = t6;
-                    int t7 = attend[i]; attend[i] = attend[j]; attend[j] = t7;
-                }
+            if (digit != 0) {
+                sb.append(HANGUL_NUM[digit]).append(HANGUL_UNIT[pos]);
             }
         }
+        return sb.toString();
+    }
 
-        // 출력 (헤더 없이)
-        for (int i = 0; i < 10; i++) {
-            System.out.printf("%d %s %d %d %d %d %d %.2f\n",
-                    id[i], name[i], mid[i], fin[i], quiz[i],
-                    report[i], attend[i], total[i]);
+    public static String convertHangul(long money) {
+        String s = String.format("%016d", money);
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < 4; i++) {
+            String part = s.substring(i * 4, i * 4 + 4);
+            String hangul = convert4Digits(part);
+            if (!hangul.isEmpty()) {
+                result.append(hangul).append(BIG_UNIT[3 - i]);
+            }
         }
+        return result.toString();
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("금액 입력(최대 16자리): ");
+        long money = sc.nextLong();
+
+        System.out.println("한글 금액: " + convertHangul(money));
     }
 }

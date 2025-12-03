@@ -18,7 +18,7 @@ public class Main {
 
         int i = 0;
         while (i < kor.length) {
-            System.out.printf("%s님의 국어 성적 입력 : ", name[i]);
+            System.out.printf("%s님의 국어 성적 입력 : ", name[i]);                            
             kor[i] = keyboard.nextInt();
             System.out.printf("%s님의 영어 성적 입력 : ", name[i]);
             eng[i] = keyboard.nextInt();
